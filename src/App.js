@@ -1,7 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import Advisors from './screens/Advisors'
+import AdvisorsScreen from './screens/Advisors'
+import EditAdvisorScreen from './screens/EditAdvisor'
 
 function App() {
   return (
@@ -13,8 +14,12 @@ function App() {
 
         <div className="px-24 py-16">
           <Switch>
-            <Route path="/" component={Advisors} />
-            <Route path="/advisors" component={Advisors} />
+            <Route path="/" exact component={AdvisorsScreen} />
+            <Route
+              path="/advisors/:advisorId/edit"
+              component={EditAdvisorScreen}
+            />
+            <Route path="/advisors" exact component={AdvisorsScreen} />
           </Switch>
         </div>
       </div>

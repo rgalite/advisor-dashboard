@@ -17,7 +17,7 @@ export default function AdvisorLine({ advisor }) {
       </div>
       <div className="w-1/4 flex items-center justify-center">
         <Link
-          to={`/advisor/${advisor.id}/edit`}
+          to={`/advisors/${advisor.id}/edit`}
           className="font-medium no-underline"
         >
           Manage

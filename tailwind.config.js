@@ -102,6 +102,9 @@ let colors = {
   'purple-dark': '#7E4CE6',
   'purple-darker': '#543299',
   'purple-darkest': '#2A194D',
+
+  'blue-input-light': '#E0E7FF20',
+  'blue-input': '#E0E7FF',
 }
 
 module.exports = {
