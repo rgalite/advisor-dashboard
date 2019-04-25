@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
+import jwtDecode from 'jwt-decode'
+
 import LoginView from './Login'
 import Api from '../../services/api'
 import Auth from '../../services/auth'
-
-const TWO_HOURS = 2 * 60 * 60 * 1000
 
 export default function LoginScreen({ history }) {
   const handleSubmit = useCallback(
@@ -21,8 +21,8 @@ export default function LoginScreen({ history }) {
             }),
           })
 
-          const expirationDate = new Date()
-          expirationDate.setTime(expirationDate.getTime() + TWO_HOURS)
+          const decodedToken = jwtDecode(token)
+          const expirationDate = new Date(decodedToken.exp * 1000)
 
           Auth.saveToken({ value: token, expirationDate: expirationDate })
           Auth.saveUser(user)
