@@ -8,6 +8,8 @@
     "react-scripts": "3.0.0"
   },
   "scripts": {
+    "build:css": "postcss src/styles/index.css -o src/index.css",
+    "watch:css": "postcss src/styles/index.css -o src/index.css -w",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -29,7 +31,10 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^9.5.1",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "1.17.0"
+    "postcss-cli": "^6.1.2",
+    "prettier": "1.17.0",
+    "tailwindcss": "^0.7.4"
   }
 }
