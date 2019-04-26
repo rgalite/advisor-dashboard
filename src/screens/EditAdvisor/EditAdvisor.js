@@ -26,7 +26,7 @@ export default function EditAdvisorView({
           Advisors
         </Link>
         <span>&nbsp;/&nbsp;</span>
-        <span>Advisor {advisor && advisor.name}</span>
+        <span>{advisor && advisor.name}</span>
       </h3>
 
       {advisor && (

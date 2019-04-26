@@ -5397,6 +5397,28 @@ table {
   width: 200px;
 }
 
+.bot-msg .botui-message-content,
+.bot-msg .botui-message-content.loading {
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.bot-btns button {
+  background-color: #6d8cff;
+  box-shadow: none;
+  border-radius: 9999px;
+}
+
+.bot-btns button:hover {
+  background-color: #2e5bff;
+}
+
+.botui-message:not(.bot-msg) .botui-message-content {
+  background-color: #2e5bff;
+  padding: 1rem;
+  color: #fff;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

@@ -13,3 +13,21 @@
 .w-200 {
   width: 200px;
 }
+
+.bot-msg .botui-message-content,
+.bot-msg .botui-message-content.loading {
+  @apply bg-white p-4;
+}
+
+.bot-btns button {
+  @apply bg-blue-light shadow-none rounded-full;
+}
+
+.bot-btns button:hover {
+  @apply bg-blue;
+}
+
+.botui-message:not(.bot-msg) .botui-message-content {
+  @apply bg-blue p-4;
+  @apply text-white;
+}
