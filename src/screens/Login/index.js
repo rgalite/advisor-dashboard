@@ -9,7 +9,6 @@ export default function LoginScreen({ history }) {
   const handleSubmit = useCallback(
     ({ email, password }) => {
       ;(async () => {
-        console.log('submit', email, password)
         try {
           const { user, token } = await Api.call('/api/v1/users/login', {
             method: 'POST',

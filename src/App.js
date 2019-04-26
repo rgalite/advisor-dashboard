@@ -5,6 +5,8 @@ import Auth from './services/auth'
 import AdvisorsScreen from './screens/Advisors'
 import EditAdvisorScreen from './screens/EditAdvisor'
 import NewAdvisorScreen from './screens/NewAdvisor'
+import PreviewAdvisorScreen from './screens/PreviewAdvisor'
+
 import Logo from './components/Logo'
 
 function App() {
@@ -12,7 +14,7 @@ function App() {
   return (
     <div className="App bg-grey-light min-h-screen">
       <div style={{ height: 80 }} className="text-blue-darkest mb-12">
-        <div class="container mx-auto flex items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between">
           <div>
             <Logo />
           </div>
@@ -29,6 +31,11 @@ function App() {
           <Switch>
             <Route path="/" exact component={AdvisorsScreen} />
             <Route path="/advisors/new" component={NewAdvisorScreen} />
+            <Route
+              path="/advisors/:advisorId/preview"
+              component={PreviewAdvisorScreen}
+              exact
+            />
             <Route path="/advisors/:advisorId" component={EditAdvisorScreen} />
             <Route path="/advisors/" component={AdvisorsScreen} exact />
           </Switch>
