@@ -6,6 +6,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
     algoliaAppId: advisor.algolia_app_id,
     algoliaSearchApiKey: advisor.algolia_search_api_key,
     algoliaIndexName: advisor.algolia_index_name,
+    resultsPageUrl: advisor.results_page_url,
   })
 
   const handleSubmit = useCallback(
@@ -52,6 +53,18 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
     []
   )
 
+  const handleResultsPageUrlChange = useCallback(
+    ({ target }) =>
+      setAdvisorData(
+        advisorData => ({
+          ...advisorData,
+          resultsPageUrl: target.value,
+        }),
+        []
+      ),
+    []
+  )
+
   return (
     <div className="bg-white px-8 py-12">
       <form onSubmit={handleSubmit}>
@@ -70,7 +83,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
               disabled={disabled}
               onChange={handleNameChange}
               value={advisorData.name || ''}
-              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-270 rounded"
+              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-400 rounded"
             />
           </label>
         </div>
@@ -84,7 +97,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
               disabled={disabled}
               onChange={handleAlgoliaAppIdChange}
               value={advisorData.algoliaAppId || ''}
-              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-270 rounded"
+              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-400 rounded"
             />
           </label>
         </div>
@@ -98,7 +111,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
               disabled={disabled}
               onChange={handleAlgoliaSearchApiKeyChange}
               value={advisorData.algoliaSearchApiKey || ''}
-              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-270 rounded"
+              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-400 rounded"
             />
           </label>
         </div>
@@ -112,7 +125,21 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
               disabled={disabled}
               onChange={handleAlgoliaIndexNameChange}
               value={advisorData.algoliaIndexName || ''}
-              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-270 rounded"
+              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-400 rounded"
+            />
+          </label>
+        </div>
+
+        <div className="pb-8">
+          <label className="">
+            <span className="block uppercase text-black-grey font-medium pb-2 text-xs">
+              Results page URL
+            </span>
+            <input
+              disabled={disabled}
+              onChange={handleResultsPageUrlChange}
+              value={advisorData.resultsPageUrl || ''}
+              className="bg-grey-light h-40 border border-blue-input py-3 px-4 w-400 rounded"
             />
           </label>
         </div>

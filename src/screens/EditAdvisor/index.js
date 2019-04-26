@@ -27,6 +27,7 @@ export default function EditAdvisorScreen({ match, history }) {
               algolia_app_id: advisorData.algoliaAppId,
               algolia_search_api_key: advisorData.algoliaSearchApiKey,
               algolia_index_name: advisorData.algoliaIndexName,
+              results_page_url: advisorData.resultsPageUrl,
             }),
           })
 
