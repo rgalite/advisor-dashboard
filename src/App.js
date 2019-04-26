@@ -5,7 +5,7 @@ import Auth from './services/auth'
 import AdvisorsScreen from './screens/Advisors'
 import EditAdvisorScreen from './screens/EditAdvisor'
 import NewAdvisorScreen from './screens/NewAdvisor'
-import Logo from './logo'
+import Logo from './components/Logo'
 
 function App() {
   const currentUser = Auth.getUser()
