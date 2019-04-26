@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { toast } from 'react-toastify'
 import EditAdvisorView from './EditAdvisor'
 import api from '../../services/api'
 
@@ -9,17 +10,15 @@ export default function EditAdvisorScreen({ match, history }) {
     questions: [],
     error: null,
   })
-  const [error, setError] = useState(null)
-  const [submitting, setSubmitting] = useState(false)
   const [addingQuestion, setAddingQuestion] = useState(false)
   const [editingQuestionId, setEditingQuestionId] = useState(null)
 
   const handleSubmit = useCallback(
     advisorData => {
       ;(async () => {
-        try {
-          setSubmitting(true)
+        const toastId = toast('Updating...', { autoClose: false })
 
+        try {
           await api.call(`/api/v1/advisors/${match.params.advisorId}`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -31,15 +30,22 @@ export default function EditAdvisorScreen({ match, history }) {
             }),
           })
 
-          history.push(`/advisors`)
-        } catch (e) {
-          setError(e)
-        } finally {
-          setSubmitting(false)
+          toast.update(toastId, {
+            type: toast.TYPE.SUCCESS,
+            render: 'Advisor successfully updated!',
+            autoClose: true,
+          })
+        } catch (error) {
+          console.error(error)
+          toast.update(toastId, {
+            type: toast.TYPE.ERROR,
+            render: 'Oops an error occured!',
+            autoClose: true,
+          })
         }
       })()
     },
-    [history, match.params.advisorId]
+    [match.params.advisorId]
   )
 
   const handleAddQuestionClick = useCallback(() => {
@@ -64,8 +70,8 @@ export default function EditAdvisorScreen({ match, history }) {
           ),
         }))
       } catch (e) {
-        setError(e)
         console.error(e)
+        toast.error('Oops an error occured')
       }
     })()
   }, [])
@@ -129,8 +135,9 @@ export default function EditAdvisorScreen({ match, history }) {
 
           setEditingQuestionId(null)
           setAddingQuestion(false)
-        } catch (e) {
-          setError(e)
+        } catch (error) {
+          console.error(error)
+          toast.error('Oops an error occured')
         }
       })()
     },
@@ -140,16 +147,33 @@ export default function EditAdvisorScreen({ match, history }) {
   const handleCustomTextSubmit = useCallback(
     customTextData => {
       ;(async () => {
-        await api.call(`/api/v1/advisors/${match.params.advisorId}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            greeting_text: customTextData.greetingText,
-            results_text: customTextData.resultsText,
-            continue_text: customTextData.continueText,
-            results_page_text: customTextData.resultsPageText,
-            start_over_text: customTextData.startOverText,
-          }),
-        })
+        const toastId = toast('Updating...', { autoClose: false })
+
+        try {
+          await api.call(`/api/v1/advisors/${match.params.advisorId}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              greeting_text: customTextData.greetingText,
+              results_text: customTextData.resultsText,
+              continue_text: customTextData.continueText,
+              results_page_text: customTextData.resultsPageText,
+              start_over_text: customTextData.startOverText,
+            }),
+          })
+
+          toast.update(toastId, {
+            type: toast.TYPE.SUCCESS,
+            render: 'Custom text successfully updated!',
+            autoClose: true,
+          })
+        } catch (error) {
+          console.error(error)
+          toast.update(toastId, {
+            type: toast.TYPE.ERROR,
+            render: 'Oops an error occured',
+            autoClose: true,
+          })
+        }
       })()
     },
     [match.params.advisorId]
@@ -173,9 +197,8 @@ export default function EditAdvisorScreen({ match, history }) {
       } catch (e) {
         setData({
           loaded: true,
-          error: e,
         })
-        setError(e)
+        toast.error('Oops an error occured')
       }
     })()
   }, [match.params.advisorId])
@@ -184,9 +207,7 @@ export default function EditAdvisorScreen({ match, history }) {
     <EditAdvisorView
       loaded={data.loaded}
       advisor={data.advisor}
-      error={error}
       onSubmit={handleSubmit}
-      submitting={submitting}
       questions={data.questions}
       addingQuestion={addingQuestion}
       onAddQuestionClick={handleAddQuestionClick}

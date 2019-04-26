@@ -5427,6 +5427,19 @@ table {
   color: #fff;
 }
 
+.custom-toast .Toastify__toast {
+  border-radius: .25rem;
+  text-align: center;
+}
+
+.custom-toast .Toastify__toast--success {
+  background-color: #33ac2e;
+}
+
+.custom-toast .Toastify__toast--error {
+  background-color: #d63649;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

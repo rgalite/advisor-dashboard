@@ -39,3 +39,15 @@
   @apply bg-blue p-4;
   @apply text-white;
 }
+
+.custom-toast .Toastify__toast {
+  @apply rounded text-center;
+}
+
+.custom-toast .Toastify__toast--success {
+  @apply bg-green;
+}
+
+.custom-toast .Toastify__toast--error {
+  @apply bg-red;
+}

@@ -7,7 +7,6 @@ import CustomTextForm from './CustomTextForm'
 export default function EditAdvisorView({
   advisor,
   onSubmit,
-  submitting,
   questions,
   addingQuestion,
   onAddQuestionClick,
@@ -34,11 +33,7 @@ export default function EditAdvisorView({
       {advisor && (
         <>
           <div className="mb-12">
-            <AdvisorForm
-              advisor={advisor}
-              onSubmit={onSubmit}
-              disabled={submitting}
-            />
+            <AdvisorForm advisor={advisor} onSubmit={onSubmit} />
           </div>
 
           <div className="mb-12">
@@ -51,15 +46,10 @@ export default function EditAdvisorView({
               editingQuestionId={editingQuestionId}
               onCancelQuestionClick={onCancelQuestionClick}
               onQuestionSubmit={onQuestionSubmit}
-              disabled={submitting}
             />
           </div>
 
-          <CustomTextForm
-            advisor={advisor}
-            onSubmit={onCustomTextSubmit}
-            disabled={submitting}
-          />
+          <CustomTextForm advisor={advisor} onSubmit={onCustomTextSubmit} />
         </>
       )}
     </div>

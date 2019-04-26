@@ -1,9 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import './index.css'
+import 'react-toastify/dist/ReactToastify.css'
 import * as serviceWorker from './serviceWorker'
 import configureRoutes from './routes'
+
+toast.configure({
+  position: toast.POSITION.BOTTOM_CENTER,
+  autoClose: 50000,
+  className: 'custom-toast',
+  hideProgressBar: true,
+})
 
 const Routing = configureRoutes
 
