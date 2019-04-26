@@ -136,6 +136,24 @@ export default function EditAdvisorScreen({ match, history }) {
     [data.questions, match.params.advisorId]
   )
 
+  const handleCustomTextSubmit = useCallback(
+    customTextData => {
+      ;(async () => {
+        await api.call(`/api/v1/advisors/${match.params.advisorId}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            greeting_text: customTextData.greetingText,
+            results_text: customTextData.resultsText,
+            continue_text: customTextData.continueText,
+            results_page_text: customTextData.resultsPageText,
+            start_over_text: customTextData.startOverText,
+          }),
+        })
+      })()
+    },
+    [match.params.advisorId]
+  )
+
   useEffect(() => {
     ;(async () => {
       try {
@@ -176,6 +194,7 @@ export default function EditAdvisorScreen({ match, history }) {
       onCancelQuestionClick={handleCancelQuestionClick}
       editingQuestionId={editingQuestionId}
       onQuestionSubmit={handleQuestionSubmit}
+      onCustomTextSubmit={handleCustomTextSubmit}
     />
   )
 }

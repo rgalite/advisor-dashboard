@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import AdvisorForm from './AdvisorForm'
 import QuestionsList from './Questions'
+import CustomTextForm from './CustomTextForm'
 
 export default function EditAdvisorView({
   advisor,
@@ -15,6 +16,7 @@ export default function EditAdvisorView({
   editingQuestionId,
   onCancelQuestionClick,
   onQuestionSubmit,
+  onCustomTextSubmit,
 }) {
   return (
     <div>
@@ -30,26 +32,35 @@ export default function EditAdvisorView({
       </h3>
 
       {advisor && (
-        <div className="mb-12">
-          <AdvisorForm
+        <>
+          <div className="mb-12">
+            <AdvisorForm
+              advisor={advisor}
+              onSubmit={onSubmit}
+              disabled={submitting}
+            />
+          </div>
+
+          <div className="mb-12">
+            <QuestionsList
+              questions={questions}
+              addingQuestion={addingQuestion}
+              onAddQuestionClick={onAddQuestionClick}
+              onDeleteQuestionClick={onDeleteQuestionClick}
+              onEditQuestionClick={onEditQuestionClick}
+              editingQuestionId={editingQuestionId}
+              onCancelQuestionClick={onCancelQuestionClick}
+              onQuestionSubmit={onQuestionSubmit}
+              disabled={submitting}
+            />
+          </div>
+
+          <CustomTextForm
             advisor={advisor}
-            onSubmit={onSubmit}
+            onSubmit={onCustomTextSubmit}
             disabled={submitting}
           />
-        </div>
-      )}
-
-      {advisor && (
-        <QuestionsList
-          questions={questions}
-          addingQuestion={addingQuestion}
-          onAddQuestionClick={onAddQuestionClick}
-          onDeleteQuestionClick={onDeleteQuestionClick}
-          onEditQuestionClick={onEditQuestionClick}
-          editingQuestionId={editingQuestionId}
-          onCancelQuestionClick={onCancelQuestionClick}
-          onQuestionSubmit={onQuestionSubmit}
-        />
+        </>
       )}
     </div>
   )

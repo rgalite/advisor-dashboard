@@ -12,7 +12,7 @@ import Logo from './components/Logo'
 function App() {
   const currentUser = Auth.getUser()
   return (
-    <div className="App bg-grey-light min-h-screen">
+    <div className="App bg-grey-light min-h-screen pb-32">
       <div style={{ height: 80 }} className="text-blue-darkest mb-12">
         <div className="container mx-auto flex items-center justify-between">
           <div>
