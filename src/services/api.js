@@ -22,6 +22,10 @@ class Api {
 
   parseResponse = response => {
     if (response.ok) {
+      if (response.status === 204) {
+        return null
+      }
+
       return response.json()
     }
 

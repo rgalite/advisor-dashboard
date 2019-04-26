@@ -56,8 +56,14 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
     <div className="bg-white px-8 py-12">
       <form onSubmit={handleSubmit}>
         <div className="pb-8">
+          <span className="text-black-grey uppercase font-light text-sm">
+            General
+          </span>
+        </div>
+
+        <div className="pb-8">
           <label className="">
-            <span className="block uppercase text-grey font-medium pb-2">
+            <span className="block uppercase text-black-grey font-medium pb-2 text-xs">
               Name
             </span>
             <input
@@ -71,7 +77,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
 
         <div className="pb-8">
           <label className="">
-            <span className="block uppercase text-grey font-medium pb-2">
+            <span className="block uppercase text-black-grey font-medium pb-2 text-xs">
               Algolia App Id
             </span>
             <input
@@ -85,7 +91,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
 
         <div className="pb-8">
           <label className="">
-            <span className="block uppercase text-grey font-medium pb-2">
+            <span className="block uppercase text-black-grey font-medium pb-2 text-xs">
               Algolia Search Api key
             </span>
             <input
@@ -99,7 +105,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
 
         <div className="pb-8">
           <label className="">
-            <span className="block uppercase text-grey font-medium pb-2">
+            <span className="block uppercase text-black-grey font-medium pb-2 text-xs">
               Algolia Index Name
             </span>
             <input
@@ -114,7 +120,7 @@ export default function AdvisorForm({ advisor, onSubmit, disabled }) {
         <div>
           <button
             type="Submit"
-            className="bg-blue text-white h-40 w-200 rounded"
+            className="bg-blue text-white h-40 w-200 rounded hover:bg-blue-dark"
             disabled={disabled}
           >
             Save changes

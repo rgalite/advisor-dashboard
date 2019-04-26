@@ -6,10 +6,13 @@ export default function EditAdvisorScreen({ match, history }) {
   const [data, setData] = useState({
     loaded: false,
     advisor: null,
+    questions: [],
     error: null,
   })
   const [error, setError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
+  const [addingQuestion, setAddingQuestion] = useState(false)
+  const [editingQuestionId, setEditingQuestionId] = useState(null)
 
   const handleSubmit = useCallback(
     advisorData => {
@@ -38,15 +41,115 @@ export default function EditAdvisorScreen({ match, history }) {
     [history, match.params.advisorId]
   )
 
+  const handleAddQuestionClick = useCallback(() => {
+    setAddingQuestion(true)
+  }, [])
+
+  const handleEditQuestionClick = useCallback(questionId => {
+    setEditingQuestionId(questionId)
+  }, [])
+
+  const handleDeleteQuestionClick = useCallback(questionId => {
+    ;(async () => {
+      try {
+        await api.call(`/api/v1/questions/${questionId}`, {
+          method: 'DELETE',
+        })
+
+        setData(data => ({
+          ...data,
+          questions: data.questions.filter(
+            question => question.id !== questionId
+          ),
+        }))
+      } catch (e) {
+        setError(e)
+        console.error(e)
+      }
+    })()
+  }, [])
+
+  const handleCancelQuestionClick = useCallback(() => {
+    setAddingQuestion(false)
+    setEditingQuestionId(null)
+  }, [])
+
+  const handleQuestionSubmit = useCallback(
+    questionData => {
+      ;(async () => {
+        try {
+          if (questionData.id) {
+            // Updating
+            const { question } = await api.call(
+              `/api/v1/questions/${questionData.id}`,
+              {
+                method: 'PUT',
+                body: JSON.stringify({
+                  question: {
+                    content: questionData.content,
+                    algolia_facet_name: questionData.facetName,
+                  },
+                }),
+              }
+            )
+
+            const index = data.questions.findIndex(
+              question => question.id === questionData.id
+            )
+
+            setData(data => ({
+              ...data,
+              questions: [
+                ...data.questions.slice(0, index),
+                question,
+                ...data.questions.slice(index + 1),
+              ],
+            }))
+          } else {
+            // Creating
+            const { question } = await api.call(
+              `/api/v1/advisors/${match.params.advisorId}/questions`,
+              {
+                method: 'POST',
+                body: JSON.stringify({
+                  question: {
+                    content: questionData.content,
+                    algolia_facet_name: questionData.facetName,
+                  },
+                }),
+              }
+            )
+
+            setData(data => ({
+              ...data,
+              questions: [...data.questions, question],
+            }))
+          }
+
+          setEditingQuestionId(null)
+          setAddingQuestion(false)
+        } catch (e) {
+          setError(e)
+        }
+      })()
+    },
+    [data.questions, match.params.advisorId]
+  )
+
   useEffect(() => {
     ;(async () => {
       try {
         const { advisor } = await api.call(
           `/api/v1/advisors/${match.params.advisorId}`
         )
+        const { questions } = await api.call(
+          `/api/v1/advisors/${match.params.advisorId}/questions`
+        )
+
         setData({
           loaded: true,
           advisor,
+          questions,
         })
       } catch (e) {
         setData({
@@ -65,6 +168,14 @@ export default function EditAdvisorScreen({ match, history }) {
       error={error}
       onSubmit={handleSubmit}
       submitting={submitting}
+      questions={data.questions}
+      addingQuestion={addingQuestion}
+      onAddQuestionClick={handleAddQuestionClick}
+      onEditQuestionClick={handleEditQuestionClick}
+      onDeleteQuestionClick={handleDeleteQuestionClick}
+      onCancelQuestionClick={handleCancelQuestionClick}
+      editingQuestionId={editingQuestionId}
+      onQuestionSubmit={handleQuestionSubmit}
     />
   )
 }

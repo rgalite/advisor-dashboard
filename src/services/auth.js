@@ -21,6 +21,10 @@ class Auth {
   saveUser(user) {
     Storage.setItem(STORAGE_USER_KEY, user)
   }
+
+  getUser() {
+    return Storage.getItem(STORAGE_USER_KEY)
+  }
 }
 
 export default new Auth()

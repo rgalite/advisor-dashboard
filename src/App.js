@@ -1,25 +1,36 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import Auth from './services/auth'
 
 import AdvisorsScreen from './screens/Advisors'
 import EditAdvisorScreen from './screens/EditAdvisor'
+import NewAdvisorScreen from './screens/NewAdvisor'
+import Logo from './logo'
 
 function App() {
+  const currentUser = Auth.getUser()
   return (
-    <div className="App bg-grey-light h-screen">
-      <div className="container mx-auto h-full">
-        <div className="bg-white px-24" style={{ height: 80 }}>
-          Header
-        </div>
+    <div className="App bg-grey-light min-h-screen">
+      <div style={{ height: 80 }} className="text-blue-darkest mb-12">
+        <div class="container mx-auto flex items-center justify-between">
+          <div>
+            <Logo />
+          </div>
 
-        <div className="px-24 py-16">
+          <div className="text-right">
+            Hello {currentUser.name},
+            <br />({currentUser.email})
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto h-full">
+        <div>
           <Switch>
             <Route path="/" exact component={AdvisorsScreen} />
-            <Route
-              path="/advisors/:advisorId/edit"
-              component={EditAdvisorScreen}
-            />
-            <Route path="/advisors" exact component={AdvisorsScreen} />
+            <Route path="/advisors/new" component={NewAdvisorScreen} />
+            <Route path="/advisors/:advisorId" component={EditAdvisorScreen} />
+            <Route path="/advisors/" component={AdvisorsScreen} exact />
           </Switch>
         </div>
       </div>
