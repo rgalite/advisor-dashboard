@@ -15,7 +15,7 @@ function App() {
     <div className="App bg-grey-light min-h-screen pb-32">
       <div style={{ height: 80 }} className="text-blue-darkest mb-12">
         <div className="container mx-auto flex items-center justify-between">
-          <div>
+          <div className="py-4">
             <Logo />
           </div>
 
